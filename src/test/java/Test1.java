@@ -24,7 +24,6 @@ public class Test1 {
         Assertions.assertEquals(url(), "https://avtolavka.net/batteries_catalog");
     }
 
-
     @Test
     public void findFromField() {
         $("#pcode").setValue("грм").pressEnter();
@@ -41,7 +40,6 @@ public class Test1 {
         $("html").shouldBe(text("Компрессор"));
     }
 
-
     @Test
     public void addBascet() {
         $$(".headCatalog.fr-dropdown-toggle").find(visible).click();
@@ -56,11 +54,16 @@ public class Test1 {
 
     }
 
-//
-//    @Test
-//    public void findFromField() {
-//        $("#pcode").setValue("грм").pressEnter();
-//        $("#searchResultsTable > tbody").shouldBe(text("Башмак цепи грм"));
-//    }
+    @Test
+    public void formAuth() {
+        $(".loginLink").click();
+        String login = $("#login").getAttribute("placeholder");
+        String pass = $("#pass").getAttribute("placeholder");
+        String btnGo = $("#go").getAttribute("value");
+
+        Assertions.assertEquals("Логин", login);
+        Assertions.assertEquals("Пароль", pass);
+        Assertions.assertEquals("Вход", btnGo);
+    }
 
 }
