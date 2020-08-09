@@ -9,58 +9,67 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
-public class Test1 {
+public class AvtolavkaTests {
     @BeforeEach
-    public void closeModal() {
+    void closeModal() {
         open("https://avtolavka.net/");
-        $(".fancybox-item").click();
-        $("html").shouldHave(text("AVTOLAVKA.NET"));
+
+        $(".fancybox-item").click();//закрываем модалку
+
+        $("html").shouldNotHave(text("Выбор офиса обслуживания"));
 
     }
 
     @Test
-    public void openBattery() {
+    void openPageWithBatteryTest() {// открытие раздела с главной страницы
         $(byText("АКБ")).click();
+
         Assertions.assertEquals(url(), "https://avtolavka.net/batteries_catalog");
     }
 
     @Test
-    public void findFromField() {
+    void findFromFieldTest() {//поиск из строки поиска
         $("#pcode").setValue("грм").pressEnter();
+
         $("#searchResultsTable > tbody").shouldBe(text("Башмак цепи грм"));
     }
 
     @Test
-    public void openAndClickFromMeny() {
+    void openAndClickFromMenyTest() {//переход в раздел из выпадающего меню
         $$(".headCatalog.fr-dropdown-toggle").find(visible).click();
         $$(".fr-dropdown-menu")
                 .find(visible)
                 .$(byText("Компрессоры"))
                 .click();
+
         $("html").shouldBe(text("Компрессор"));
     }
 
     @Test
-    public void addBascet() {
+    void addInBasketTest() {
         $$(".headCatalog.fr-dropdown-toggle").find(visible).click();
         $$(".fr-dropdown-menu")
                 .find(visible)
                 .$(byText("Ароматизаторы"))
                 .click();
+        //Ищем товар и нажимаем на добавить в корзину
         $("html").shouldBe(text("Ароматизатор"));
+
         $$(".fr-icon2-basket-2").find(visible).click();
         $$(".wCart").find(visible).click();
+        //проверка добавления товара в корзину
         $("#formTrash").shouldBe(text("Ароматизатор"));
 
     }
 
     @Test
-    public void formAuth() {
+    void formAuthTest() {
         $(".loginLink").click();
+
         String login = $("#login").getAttribute("placeholder");
         String pass = $("#pass").getAttribute("placeholder");
         String btnGo = $("#go").getAttribute("value");
-
+        //проверяем наличие полей на поле Авторизация
         Assertions.assertEquals("Логин", login);
         Assertions.assertEquals("Пароль", pass);
         Assertions.assertEquals("Вход", btnGo);
