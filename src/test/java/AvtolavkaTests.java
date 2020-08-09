@@ -50,7 +50,7 @@ public class AvtolavkaTests {
                 .click();
         $(".item_ul").shouldBe(text("Ароматизатор")); // Ищем товар и нажимаем на добавить в корзину
 
-        $$(".fr-icon2-basket-2").find(visible).click(); // todo fix
+        $$(".fr-icon2-basket-2").find(visible).click(); // добавляем товар в корзину, но у кнопки есть только класс иконки todo fix
         $$(".wCart").find(visible).click();
 
         //проверка добавления товара в корзину
