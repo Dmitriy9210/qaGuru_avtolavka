@@ -24,7 +24,7 @@ public class AvtolavkaTests {
     void openPageWithBatteryTest() {// открытие раздела с главной страницы
         $(byText("АКБ")).click();
 
-        Assertions.assertEquals(url(), "https://avtolavka.net/batteries_catalog");
+        Assertions.assertEquals(url(), "https://avtolavka.net/batteries_catalog"); //проверяем url
     }
 
     @Test
