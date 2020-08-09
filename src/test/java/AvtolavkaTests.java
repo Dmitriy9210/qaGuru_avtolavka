@@ -1,10 +1,7 @@
-import com.codeborne.selenide.Condition;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
@@ -41,7 +38,7 @@ public class AvtolavkaTests {
                 .$(byText("Компрессоры"))
                 .click();
 
-        $("html").shouldBe(text("Компрессор")); // todo fix test
+        $(".item_ul").shouldBe(text("Компрессор"));
     }
 
     @Test
@@ -51,28 +48,22 @@ public class AvtolavkaTests {
                 .find(visible)
                 .$(byText("Ароматизаторы"))
                 .click();
-        $("html").shouldBe(text("Ароматизатор")); // Ищем товар и нажимаем на добавить в корзину
+        $(".item_ul").shouldBe(text("Ароматизатор")); // Ищем товар и нажимаем на добавить в корзину
 
         $$(".fr-icon2-basket-2").find(visible).click(); // todo fix
         $$(".wCart").find(visible).click();
-        
+
         //проверка добавления товара в корзину
         $("#formTrash").shouldBe(text("Ароматизатор"));
-
     }
 
     @Test
     void formAuthTest() {
         $(".loginLink").click();
 
-        String login = $("#login").getAttribute("placeholder"); // todo .shouldHave(attribute(“class”, “active checked”))
-        String pass = $("#pass").getAttribute("placeholder");
-        String btnGo = $("#go").getAttribute("value");
-        
-        //проверяем наличие полей на поле Авторизация
-        Assertions.assertEquals("Логин", login);
-        Assertions.assertEquals("Пароль", pass);
-        Assertions.assertEquals("Вход", btnGo);
+        $("#login").shouldHave(attribute("placeholder", "Логин"));
+        $("#pass").shouldHave(attribute("placeholder", "Пароль"));
+        $("#go").shouldHave(attribute("value", "Вход"));
     }
 
 }
